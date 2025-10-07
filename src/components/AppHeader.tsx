@@ -5,11 +5,20 @@ export const AppHeader = () => (
   <header className="header-bar">
     <div className="brand-group">
       <span className="brand-badge">Builder</span>
-      <span className="brand-title">Project Dashboard</span>
+      <span className="brand-title">Evaluation Workspace</span>
     </div>
     <nav className="navigation-links">
       <NavLink to="/" className="navigation-link">
         Overview
+      </NavLink>
+      <NavLink to="/evaluate" className="navigation-link">
+        New Evaluation
+      </NavLink>
+      <NavLink to="/reports" className="navigation-link">
+        Reports
+      </NavLink>
+      <NavLink to="/sql" className="navigation-link">
+        SQL Reference
       </NavLink>
       <a
         className="navigation-link"
