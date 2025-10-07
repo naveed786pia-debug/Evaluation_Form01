@@ -4,7 +4,6 @@ import { AppHeader } from "./components/AppHeader";
 import { HomePage } from "./pages/Home/HomePage";
 import { EvaluationFormPage } from "./pages/EvaluationForm/EvaluationFormPage";
 import { ReportsPage } from "./pages/Reports/ReportsPage";
-import { SqlReferencePage } from "./pages/SqlReference/SqlReferencePage";
 import { EvaluationProvider } from "./state/EvaluationContext";
 import "./styles/app-shell.css";
 
@@ -18,7 +17,6 @@ export const App = () => (
             <Route path="/" element={<HomePage />} />
             <Route path="/evaluate" element={<EvaluationFormPage />} />
             <Route path="/reports" element={<ReportsPage />} />
-            <Route path="/sql" element={<SqlReferencePage />} />
           </Routes>
         </main>
         <AppFooter />
