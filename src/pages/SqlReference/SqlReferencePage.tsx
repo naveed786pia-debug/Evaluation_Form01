@@ -14,8 +14,6 @@ const formatSection = (sql: string, title: string) => {
 
 export const SqlReferencePage = () => {
   const creationScript = useMemo(() => schemaSql.trim(), []);
-  const tablesSection = useMemo(() => formatSection(schemaSql, "Database"), []);
-  const proceduresSection = useMemo(() => formatSection(schemaSql, "Database"), []);
 
   const handleDownload = () => {
     const blob = new Blob([creationScript], { type: "application/sql" });
