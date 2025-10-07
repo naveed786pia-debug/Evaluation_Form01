@@ -1,30 +1,41 @@
 import "./home-page.css";
 
+import { Link } from "react-router-dom";
+import "./home-page.css";
+
 const featureHighlights = [
   {
-    title: "Instant Preview",
+    title: "Guided evaluations",
     description:
-      "Launch the development server with npm run dev and explore changes in real time.",
+      "Capture ratings, comments, and weighted scores in the Evaluation Entry tool without any manual math.",
   },
   {
-    title: "TypeScript Ready",
+    title: "Insightful reports",
     description:
-      "Grow the codebase confidently with full TypeScript support and strict settings.",
+      "Review trends, compare evaluations, and export data as JSON or CSV for external analysis.",
   },
   {
-    title: "Routing Included",
+    title: "Ready-to-run MSSQL",
     description:
-      "Extend the app with new pages using React Router without additional setup.",
+      "Provision databases quickly with the bundled schema and stored procedures designed for this workflow.",
   }
 ];
 
 export const HomePage = () => (
   <section className="home-hero">
     <div className="hero-card">
-      <h1 className="hero-title">Welcome to your Builder workspace</h1>
+      <h1 className="hero-title">Question & Answer Evaluation Suite</h1>
       <p className="hero-subtitle">
-        Everything is wired up and ready for you to start building rich experiences.
+        Launch web-based reviews, capture consistent ratings, and back everything with a production-ready MSSQL schema.
       </p>
+      <div className="cta-row">
+        <Link className="cta-primary" to="/evaluate">
+          Start an evaluation
+        </Link>
+        <Link className="cta-secondary" to="/sql">
+          View SQL schema
+        </Link>
+      </div>
       <div className="highlight-grid">
         {featureHighlights.map(({ title, description }) => (
           <article key={title} className="highlight-tile">
