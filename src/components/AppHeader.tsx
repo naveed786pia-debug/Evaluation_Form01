@@ -17,9 +17,6 @@ export const AppHeader = () => (
       <NavLink to="/reports" className="navigation-link">
         Reports
       </NavLink>
-      <NavLink to="/sql" className="navigation-link">
-        SQL Reference
-      </NavLink>
       <a
         className="navigation-link"
         href="https://www.builder.io/c/docs/projects"
