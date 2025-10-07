@@ -32,8 +32,8 @@ export const HomePage = () => (
         <Link className="cta-primary" to="/evaluate">
           Start an evaluation
         </Link>
-        <Link className="cta-secondary" to="/sql">
-          View SQL schema
+        <Link className="cta-secondary" to="/reports">
+          View reports
         </Link>
       </div>
       <div className="highlight-grid">
