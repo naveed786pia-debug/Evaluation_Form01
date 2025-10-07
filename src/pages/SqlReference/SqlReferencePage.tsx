@@ -3,15 +3,6 @@ import { Link } from "react-router-dom";
 import schemaSql from "../../../sql/evaluation-platform.sql?raw";
 import "./sql-reference-page.css";
 
-const formatSection = (sql: string, title: string) => {
-  const pattern = new RegExp(`(^|\n)(-- ${title}.*?)(?=\n-- |$)`, "is");
-  const match = sql.match(pattern);
-  if (!match) {
-    return "Section not found in script.";
-  }
-  return match[0].trim();
-};
-
 export const SqlReferencePage = () => {
   const creationScript = useMemo(() => schemaSql.trim(), []);
 
