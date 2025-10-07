@@ -27,7 +27,7 @@ type EvaluationState = {
 };
 
 type EvaluationAction =
-  | { type: "submit"; payload: EvaluationSubmission }
+  | { type: "submit"; record: EvaluationRecord }
   | { type: "reset" };
 
 type EvaluationContextValue = EvaluationState & {
@@ -55,41 +55,11 @@ const submitEvaluationReducer = (
   action: EvaluationAction
 ): EvaluationState => {
   switch (action.type) {
-    case "submit": {
-      const template = state.templates.find((item) => item.id === action.payload.templateId) ?? defaultTemplate;
-      const responses: EvaluationResponse[] = action.payload.responses.map((input) => {
-        const question = template.questions.find((questionItem) => questionItem.id === input.questionId);
-        if (!question) {
-          throw new Error(`Question ${input.questionId} does not exist in template ${template.id}`);
-        }
-        const scoreContribution = calculateResponseScore(question, input.rating);
-        return {
-          questionId: input.questionId,
-          rating: Number(input.rating.toFixed(2)),
-          comment: input.comment,
-          scoreContribution: Number(scoreContribution.toFixed(4))
-        };
-      });
-
-      const overallScore = responses.reduce((total, response) => total + response.scoreContribution, 0);
-      const evaluation: EvaluationRecord = {
-        id: `evaluation-${Date.now()}`,
-        templateId: template.id,
-        subjectName: action.payload.subjectName,
-        subjectRole: action.payload.subjectRole,
-        evaluatorName: action.payload.evaluatorName,
-        evaluationDate: action.payload.evaluationDate,
-        notes: action.payload.notes,
-        responses,
-        overallScore: Number(overallScore.toFixed(2)),
-        createdAt: new Date().toISOString()
-      };
-
+    case "submit":
       return {
         ...state,
-        evaluations: [evaluation, ...state.evaluations]
+        evaluations: [action.record, ...state.evaluations]
       };
-    }
     case "reset":
       return initialState;
     default:
@@ -102,7 +72,6 @@ export const EvaluationProvider = ({ children }: { children: ReactNode }) => {
 
   const contextValue = useMemo<EvaluationContextValue>(() => {
     const submitEvaluation = (submission: EvaluationSubmission) => {
-      dispatch({ type: "submit", payload: submission });
       const template = state.templates.find((item) => item.id === submission.templateId) ?? defaultTemplate;
       const responses: EvaluationResponse[] = submission.responses.map((input) => {
         const question = template.questions.find((questionItem) => questionItem.id === input.questionId);
@@ -119,7 +88,7 @@ export const EvaluationProvider = ({ children }: { children: ReactNode }) => {
       });
 
       const overallScore = responses.reduce((total, response) => total + response.scoreContribution, 0);
-      return {
+      const evaluation: EvaluationRecord = {
         id: `evaluation-${Date.now()}`,
         templateId: submission.templateId,
         subjectName: submission.subjectName,
@@ -130,7 +99,10 @@ export const EvaluationProvider = ({ children }: { children: ReactNode }) => {
         responses,
         overallScore: Number(overallScore.toFixed(2)),
         createdAt: new Date().toISOString()
-      } satisfies EvaluationRecord;
+      };
+
+      dispatch({ type: "submit", record: evaluation });
+      return evaluation;
     };
 
     return {
